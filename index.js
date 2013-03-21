@@ -5,11 +5,17 @@ var esServerOptions = {
   host: 'localhost',
   port: 9200
 };
-
+var couchServerOptions = {
+  host: 'localhost',
+  port: 15984
+};
+ 
 function wwwNpmSearch(options) {
   options = options || {};
   esServerOptions.host = options.host || esServerOptions.host;
   esServerOptions.port = options.port || esServerOptions.port;
+  couchServerOptions.host = options.couchdb.host || couchServerOptions.host;
+  couchServerOptions.port = options.couchdb.port || couchServerOptions.port;
   esClient = {};
   esClient.reindexRegistry = reindexRegistry;
   esClient.implode = implode;
@@ -67,8 +73,8 @@ function wwwNpmSearch(options) {
     var options = {
       "type" : "couchdb",
       "couchdb" : {
-          "host" : "localhost",
-          "port" : 15984,
+          "host" : couchServerOptions.host,
+          "port" : couchServerOptions.port,
           "db" : "registry",
           "filter" : null,
           "ignore_attachments":true,
